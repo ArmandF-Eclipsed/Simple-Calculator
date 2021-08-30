@@ -6,11 +6,12 @@ abstract class SimpleCalcState extends Equatable {
 }
 
 class SimpleCalcCalculated extends SimpleCalcState {
-  SimpleCalcCalculated(this.breakdown, this.totalChange);
+  SimpleCalcCalculated(this.breakdown, this.totalChange, this.errMsg);
 
   final Map<String, num> breakdown;
   final num totalChange;
+  final String errMsg;
 
   @override
-  List<Object> get props => [breakdown, totalChange];
+  List<Object> get props => [breakdown, totalChange, errMsg];
 }

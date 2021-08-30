@@ -7,10 +7,15 @@ class SimpleCalcView extends StatelessWidget {
   final TextEditingController tenderController = TextEditingController(text: '50');
 
   void _calculateChange(BuildContext context) {
-    BlocProvider.of<SimpleCalcCubit>(context).calculateWithMod(
-      double.tryParse(costController.text),
-      double.tryParse(tenderController.text),
-    );
+    if (double.tryParse(costController.text) == null ||
+        double.tryParse(tenderController.text) == null) {
+      BlocProvider.of<SimpleCalcCubit>(context).textError();
+    } else {
+      BlocProvider.of<SimpleCalcCubit>(context).calculateWithMod(
+        double.tryParse(costController.text),
+        double.tryParse(tenderController.text),
+      );
+    }
   }
 
   void _clear(BuildContext context) {
@@ -71,6 +76,18 @@ class SimpleCalcView extends StatelessWidget {
                                     .toList(),
                               )
                             ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Offstage(
+                      offstage: state.errMsg.isEmpty,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            state.errMsg,
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
