@@ -11,8 +11,22 @@ class SimpleCalcCubit extends Cubit<SimpleCalcState> {
   void calculateWithMod(double cost, double tender) {
     num totalChange = tender - cost, tempChange = totalChange;
     Map<String, num> breakdown = {};
+    String msg = "";
 
     try {
+      // If tender is negative
+      if (tender < 0) {
+        msg = "The tender amount you entered was negative.";
+        tender *= -1;
+        totalChange = tender - cost;
+        tempChange = totalChange;
+      } else {
+        // If tender is smaller than the cost amount.
+        msg = (tender < cost)
+            ? "Please check your amounts entered. The tender amount can't be smaller than the cost."
+            : "";
+      }
+
       for (var denomination in validDenominations) {
         if (denomination <= tempChange) {
           int amount = tempChange ~/ denomination;
@@ -23,7 +37,7 @@ class SimpleCalcCubit extends Cubit<SimpleCalcState> {
       }
 
       // Success State
-      emit(SimpleCalcCalculated(breakdown, totalChange, ""));
+      emit(SimpleCalcCalculated(breakdown, totalChange, msg));
     } catch (e) {
       // Failed State
       emit(SimpleCalcCalculated({}, 0, e.toString()));

@@ -60,6 +60,18 @@ class SimpleCalcView extends StatelessWidget {
                       ),
                     ),
                     Offstage(
+                      offstage: state.errMsg.isEmpty,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            state.errMsg,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Offstage(
                       offstage: state.breakdown.isEmpty,
                       child: Card(
                         child: Padding(
@@ -76,18 +88,6 @@ class SimpleCalcView extends StatelessWidget {
                                     .toList(),
                               )
                             ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: state.errMsg.isEmpty,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            state.errMsg,
-                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
