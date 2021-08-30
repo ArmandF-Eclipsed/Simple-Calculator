@@ -9,10 +9,8 @@ class SimpleCalcCubit extends Cubit<SimpleCalcState> {
   List<num> validDenominations = [200, 50, 20, 10, 5, 2, 1, 0.5, 0.2];
 
   void calculateWithMod(double cost, double tender) {
-    num totalChange = tender - cost;
+    num totalChange = tender - cost, tempChange = totalChange;
     Map<String, num> breakdown = {};
-
-    num tempChange = totalChange;
 
     for (var denomination in validDenominations) {
       if (denomination <= tempChange) {
