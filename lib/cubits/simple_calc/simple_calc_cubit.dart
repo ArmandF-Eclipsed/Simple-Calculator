@@ -36,6 +36,10 @@ class SimpleCalcCubit extends Cubit<SimpleCalcState> {
         }
       }
 
+      msg = (tempChange > 0 && msg.isEmpty)
+          ? "The rand note value was incorrect. Can't return: ${tempChange.toStringAsFixed(2)}c to client."
+          : msg;
+
       // Success State
       emit(SimpleCalcCalculated(breakdown, totalChange, msg));
     } catch (e) {
